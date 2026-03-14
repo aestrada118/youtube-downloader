@@ -4,67 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Downloader</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background: #ff0000;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-        }
-        main {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        input[type='text'], input[type='url'] {
-            width: 100%;
-            max-width: 600px;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #ff0000;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #cc0000;
-        }
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
+    <nav>
         <h1>YouTube Downloader</h1>
-    </header>
-    <main>
-        <input type="text" id="videoUrl" placeholder="Enter YouTube Video URL" />
-        <button id="downloadButton">Download Video</button>
-    </main>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#history">History</a></li>
+        </ul>
+    </nav>
+    <section id="hero">
+        <h2>Download YouTube Videos Quickly and Easily</h2>
+        <p>Copy and paste the URL of the video you want to download.</p>
+        <form id="downloadForm">
+            <input type="text" placeholder="Enter Video URL" required>
+            <button type="submit">Download</button>
+        </form>
+    </section>
+    <section id="features">
+        <h2>Features</h2>
+        <ul>
+            <li>High-Quality Downloads</li>
+            <li>Multiple Formats Supported</li>
+            <li>Fast Download Speeds</li>
+            <li>User-Friendly Interface</li>
+        </ul>
+    </section>
+    <section id="history">
+        <h2>Download History</h2>
+        <table>
+            <tr>
+                <th>Video Title</th>
+                <th>Download Date</th>
+            </tr>
+            <!-- History items will be dynamically generated here -->
+        </table>
+    </section>
     <footer>
-        <p>&copy; 2026 Future Technologies</p>
+        <p>&copy; 2026 YouTube Downloader. All rights reserved.</p>
     </footer>
 </body>
 </html>
