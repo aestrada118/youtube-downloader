@@ -1,74 +1,144 @@
-.navbar {
-    background: linear-gradient(135deg, #1f1c2c, #928DAB);
+:root {
+    --primary-red: #ff0000;
+    --accent-cyan: #00d4ff;
+    --dark: #0f0f0f;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Navbar Styles */
+nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-red);
     padding: 20px;
 }
 
-.navbar a {
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav a {
     color: white;
     text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
+    transition: transform 0.2s;
 }
 
+nav a:hover {
+    transform: scale(1.1);
+}
+
+/* Hero Section */
 .hero {
-    background-image: linear-gradient(to right, #ff7660, #ff7f50);
-    color: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 100px 20px;
+    animation: fadeIn 1.5s;
 }
 
+.hero h1 {
+    font-size: 4em;
+    animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 5px var(--accent-cyan), 0 0 10px var(--accent-cyan), 0 0 15px var(--primary-red); }
+    100% { text-shadow: 0 0 20px var(--accent-cyan), 0 0 30px var(--accent-cyan), 0 0 40px var(--primary-red); }
+}
+
+/* Download Form Styling */
 .download-form {
-    background: #333;
-    padding: 30px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid var(--accent-cyan);
     border-radius: 10px;
-    margin: 20px auto;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
 .download-form input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: none;
+    border: 1px solid var(--primary-red);
     border-radius: 5px;
 }
 
-.features-grid {
+/* Features Grid */
+.features {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    padding: 20px;
 }
 
-.feature {
-    background: #444;
+.features div {
+    background-color: var(--accent-cyan);
     padding: 20px;
     border-radius: 10px;
+    animation: slideIn 0.5s;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* History Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid var(--primary-red);
+    padding: 15px;
+    text-align: left;
+}
+
+/* Footer */
+footer {
     text-align: center;
-    animation: fadeIn 0.5s;
-}
-
-.history {
-    background: #222;
-    color: white;
+    background-color: var(--dark);
     padding: 20px;
-    margin: 20px 0;
 }
 
-@media (max-width: 700px) {
-    .navbar {
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5em;
+    }
+}
+@media (max-width: 480px) {
+    nav {
         flex-direction: column;
     }
-    .hero {
-        padding: 50px 10px;
-    }
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-cyan);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark);
 }
