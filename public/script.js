@@ -56,53 +56,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function downloadVideo(videoId, quality) {
-        showStatus('Starting download...', 'info');
-        showProgress(0);
+        showStatus('Fetching video info…', 'info');
+        showProgress(10);
 
         try {
-            const response = await fetch(
-                `https://youtube-api.example/download?videoId=${videoId}&quality=${quality}`
+            // Verify the video exists and retrieve its title
+            const infoResponse = await fetch(
+                `/api/info?videoId=${encodeURIComponent(videoId)}`
             );
-            if (!response.ok) throw new Error('Network response was not ok');
+            if (!infoResponse.ok) {
+                let errMsg = 'Failed to fetch video info';
+                try {
+                    const err = await infoResponse.json();
+                    errMsg = err.error || errMsg;
+                } catch (parseErr) {
+                    console.error('Could not parse error response:', parseErr);
+                }
+                throw new Error(errMsg);
+            }
+            const info = await infoResponse.json();
 
-            const downloadLink = await response.json();
-            trackProgress(downloadLink);
-            saveToHistory(videoId, quality);
-            showStatus('Download started successfully!', 'success');
+            showProgress(40);
+            showStatus(`Downloading: ${info.title}`, 'info');
+
+            // Trigger the actual file download via a hidden link
+            const downloadUrl =
+                `/api/download?videoId=${encodeURIComponent(videoId)}&quality=${encodeURIComponent(quality)}`;
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            showProgress(100);
+            showStatus('Download started! Check your downloads folder.', 'success');
+            saveToHistory(videoId, quality, info.title);
         } catch (error) {
             console.error('Error downloading video:', error);
-            // Demo mode: simulate download when API is unavailable
-            simulateDownload(videoId, quality);
+            showStatus(
+                `Error: ${error.message || 'Could not connect to the server. Make sure it is running (npm start).'}`,
+                'error'
+            );
+            showProgress(0);
         }
-    }
-
-    function simulateDownload(videoId, quality) {
-        showStatus(`Downloading ${videoId} at ${quality}...`, 'info');
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += Math.floor(Math.random() * 15) + 5;
-            if (progress >= 100) {
-                progress = 100;
-                clearInterval(interval);
-                showProgress(100);
-                showStatus('Download complete!', 'success');
-                saveToHistory(videoId, quality);
-            }
-            showProgress(progress);
-        }, 400);
-    }
-
-    function trackProgress(downloadLink) {
-        let progress = 0;
-        const interval = setInterval(() => {
-            if (progress < 100) {
-                progress += 10;
-                showProgress(progress);
-            } else {
-                clearInterval(interval);
-                showStatus('Download complete!', 'success');
-            }
-        }, 500);
     }
 
     function showProgress(value) {
@@ -117,9 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
         statusEl.className = 'status-message ' + type;
     }
 
-    function saveToHistory(videoId, quality) {
+    function saveToHistory(videoId, quality, title) {
         const history = JSON.parse(localStorage.getItem('downloadHistory')) || [];
-        history.unshift({ videoId, quality, date: new Date().toISOString() });
+        history.unshift({ videoId, quality, title: title || videoId, date: new Date().toISOString() });
         localStorage.setItem('downloadHistory', JSON.stringify(history));
         renderHistory();
     }
@@ -130,15 +127,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (history.length === 0) {
             const row = document.createElement('tr');
-            row.innerHTML = '<td colspan="3" style="text-align:center;color:#666;">No downloads yet</td>';
+            const td = document.createElement('td');
+            td.colSpan = 3;
+            td.style.textAlign = 'center';
+            td.style.color = '#666';
+            td.textContent = 'No downloads yet';
+            row.appendChild(td);
             historyBody.appendChild(row);
             return;
         }
 
         history.forEach((item) => {
             const row = document.createElement('tr');
-            const date = new Date(item.date).toLocaleString();
-            row.innerHTML = `<td>${item.videoId}</td><td>${item.quality}</td><td>${date}</td>`;
+            const tdTitle = document.createElement('td');
+            const tdQuality = document.createElement('td');
+            const tdDate = document.createElement('td');
+
+            tdTitle.textContent = item.title || item.videoId;
+            tdQuality.textContent = item.quality;
+            tdDate.textContent = new Date(item.date).toLocaleString();
+
+            row.appendChild(tdTitle);
+            row.appendChild(tdQuality);
+            row.appendChild(tdDate);
             historyBody.appendChild(row);
         });
     }
