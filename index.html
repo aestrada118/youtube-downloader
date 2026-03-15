@@ -19,31 +19,65 @@
         <h2>Download YouTube Videos Quickly and Easily</h2>
         <p>Copy and paste the URL of the video you want to download.</p>
         <form id="downloadForm">
-            <input type="text" placeholder="Enter Video URL" required>
+            <input type="text" id="videoUrl" placeholder="Enter Video URL" required>
+            <select id="qualitySelect">
+                <option value="360p">360p</option>
+                <option value="480p">480p</option>
+                <option value="720p" selected>720p</option>
+                <option value="1080p">1080p</option>
+            </select>
             <button type="submit">Download</button>
         </form>
+        <div id="status" class="status-message"></div>
+        <div id="progressContainer" class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+            <span id="progressText" class="progress-text">0%</span>
+        </div>
     </section>
     <section id="features">
         <h2>Features</h2>
-        <ul>
-            <li>High-Quality Downloads</li>
-            <li>Multiple Formats Supported</li>
-            <li>Fast Download Speeds</li>
-            <li>User-Friendly Interface</li>
-        </ul>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>High-Quality Downloads</h3>
+                <p>Download videos in up to 1080p resolution.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎵</span>
+                <h3>Multiple Formats</h3>
+                <p>Support for MP4, WebM, and audio-only formats.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🚀</span>
+                <h3>Fast Speeds</h3>
+                <p>Optimized download engine for maximum speed.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h3>User-Friendly</h3>
+                <p>Simple interface — just paste and download.</p>
+            </div>
+        </div>
     </section>
     <section id="history">
         <h2>Download History</h2>
-        <table>
-            <tr>
-                <th>Video Title</th>
-                <th>Download Date</th>
-            </tr>
-            <!-- History items will be dynamically generated here -->
+        <table id="historyTable">
+            <thead>
+                <tr>
+                    <th>Video ID</th>
+                    <th>Quality</th>
+                    <th>Download Date</th>
+                </tr>
+            </thead>
+            <tbody id="historyBody">
+                <!-- History items will be dynamically generated here -->
+            </tbody>
         </table>
+        <button id="clearHistory" class="clear-btn">Clear History</button>
     </section>
     <footer>
         <p>&copy; 2026 YouTube Downloader. All rights reserved.</p>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
