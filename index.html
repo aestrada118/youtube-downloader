@@ -13,6 +13,7 @@
             <li><a href="#hero">Home</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#history">History</a></li>
+            <li><a href="#converter">Converter</a></li>
         </ul>
     </nav>
     <section id="hero">
@@ -42,8 +43,31 @@
             <!-- History items will be dynamically generated here -->
         </table>
     </section>
+    <!-- Celsius to Fahrenheit Converter Section -->
+    <section id="converter">
+        <h2>Conversor de Temperatura</h2>
+        <p>Convierte grados Celsius a Fahrenheit usando la fórmula: <strong>F = C × 9/5 + 32</strong></p>
+        <div class="converter-box">
+            <pre class="pseudocode">
+INICIO
+  LEER celsius
+  SI celsius &lt; -273.15 ENTONCES
+    ESCRIBIR "Error: temperatura inválida"
+  SI NO
+    fahrenheit ← celsius × (9/5) + 32
+    ESCRIBIR fahrenheit
+  FIN SI
+FIN</pre>
+            <form id="converterForm">
+                <input type="number" id="celsiusInput" placeholder="Temperatura en °C" step="any" required>
+                <button type="submit">Convertir</button>
+            </form>
+            <p id="converterResult"></p>
+        </div>
+    </section>
     <footer>
         <p>&copy; 2026 YouTube Downloader. All rights reserved.</p>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
