@@ -110,6 +110,67 @@ table th, table td {
     text-align: left;
 }
 
+/* Temperature Converter Section */
+#converter {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    text-align: center;
+}
+
+#converter h2 {
+    color: var(--accent-cyan);
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.converter-box {
+    background-color: #1a1a1a;
+    border: 1px solid var(--accent-cyan);
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.pseudocode {
+    text-align: left;
+    background-color: #0a0a0a;
+    border-left: 4px solid var(--primary-red);
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 0.9em;
+    color: #ccc;
+    white-space: pre;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+#converterForm {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#converterForm input {
+    padding: 10px;
+    border: 1px solid var(--primary-red);
+    border-radius: 5px;
+    background-color: #0f0f0f;
+    color: white;
+    font-size: 1em;
+    width: 220px;
+}
+
+#converterResult {
+    margin-top: 15px;
+    font-size: 1.3em;
+    color: var(--accent-cyan);
+    font-weight: bold;
+    min-height: 1.5em;
+}
+
 /* Footer */
 footer {
     text-align: center;

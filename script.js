@@ -49,3 +49,51 @@ const qualities = ['360p', '480p', '720p', '1080p'];
 const selectedQuality = selectQuality(qualities);
 
 downloadVideo(videoId, selectedQuality);
+
+// ─── Celsius to Fahrenheit Converter ────────────────────────────────────────
+
+/**
+ * Converts a temperature from Celsius to Fahrenheit.
+ * Pseudocode:
+ *   INICIO
+ *     LEER celsius
+ *     SI celsius < -273.15 ENTONCES
+ *       RETORNAR error
+ *     fahrenheit ← celsius * (9 / 5) + 32
+ *     RETORNAR fahrenheit
+ *   FIN
+ *
+ * @param {number} celsius - Temperature in degrees Celsius
+ * @returns {number} Temperature in degrees Fahrenheit
+ */
+function celsiusToFahrenheit(celsius) {
+    if (celsius < -273.15) {
+        throw new RangeError('Temperature below absolute zero (-273.15 °C) is not valid.');
+    }
+    return celsius * (9 / 5) + 32;
+}
+
+// Wire up the converter form
+document.addEventListener('DOMContentLoaded', () => {
+    const converterForm = document.getElementById('converterForm');
+    if (!converterForm) return;
+
+    converterForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const input = document.getElementById('celsiusInput');
+        const resultEl = document.getElementById('converterResult');
+        const celsius = parseFloat(input.value);
+
+        if (isNaN(celsius)) {
+            resultEl.textContent = 'Por favor, ingresa un número válido.';
+            return;
+        }
+
+        try {
+            const fahrenheit = celsiusToFahrenheit(celsius);
+            resultEl.textContent = `${celsius} °C = ${fahrenheit.toFixed(2)} °F`;
+        } catch (e) {
+            resultEl.textContent = e.message;
+        }
+    });
+});
